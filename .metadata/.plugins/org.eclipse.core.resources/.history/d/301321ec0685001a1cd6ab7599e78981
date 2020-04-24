@@ -1,0 +1,5 @@
+package com.biz.hello.domain;
+
+public class UserVO {
+
+}
