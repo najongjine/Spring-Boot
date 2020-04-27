@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<th:block th:include="head">
+
+</th:block>
+<script type="text/javascript">
+$(function(){
+	let mode='[[${MODE}]]'
+	if(mode=='view'){
+		$("input").prop("readonly",true)
+		$("input").css("border","none")
+	}
+})
+</script>
+</head>
+<body>
+<h2 th:if="${MODE == 'insert'}">도서 등록</h2>
+<h2 th:if="${MODE == 'update'}">도서 수정</h2>
+<h2 th:if="${MODE == 'view'}">도서 세부정보</h2>
+
+<form method="post" th:object="${bookVO}" th:action="${ACTION}" class="was-validated">
+	<p>
+	<input th:field="*{id}" type="hidden">
+	</p>
+	
+	<div>
+	<label for="title">도서명: </label>
+	<input th:field="*{title}" required="required">
+	<div class="valid-feedback">도서명 확인</div>
+	<div class="invalid-feedback">도서명 을 입력해 주세요</div>
+	</div>
+	
+	<div>
+	<label for="comp">comp: </label>
+	<input th:field="*{comp}" required="required">
+	<div class="invalid-feedback">comp 을 입력해 주세요</div>
+	</div>
+	
+	<p>
+	<label for="auth">auth: </label>
+	<input th:field="*{auth}">
+	</p>
+	
+	<p>
+	<label for="year">출판년도: </label>
+	<input th:field="*{year}">
+	</p>
+	
+	<p>
+	<label for="price">price: </label>
+	<input th:field="*{price}">
+	</p>
+	
+	<button th:if="${MODE != 'view'}">save</button>
+	<a th:if="${MODE == 'view'}" th:href="@{/book/update(id=${bookVO.id})}">
+	<button type="button" >Go to update Page</button>
+	</a>
+</form>
+
+</body>
+</html>

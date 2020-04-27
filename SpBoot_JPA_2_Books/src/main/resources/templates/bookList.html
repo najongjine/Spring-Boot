@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head  th:fragment="listHead">
+<th:block th:include="head">
+
+</th:block>
+<style>
+table{
+border:1px solid blue;
+border-collapse: collpase;
+width: 90%;
+margin: 10px auto;
+}
+td,th{
+white-space: nowrap;
+border:1px solid blue;
+}
+</style>
+<script type="text/javascript">
+$(function(){
+	$(document).on("click","#btn_insert",function(){
+		document.location.href="/book/insert";
+	})
+	$(document).on("click",".u_tr",function(){
+		if(!confirm("정말 삭제하시겠습니까?")){
+			return false
+		}
+		let id=$(this).data("book-id")
+		document.location.href="/book/delete?id="+id
+	})
+})
+</script>
+</head>
+
+<body th:fragment="listBody">
+<h2>MEMBER LIST</h2>
+
+<table>
+<tr>
+	<th>도서명</th>
+	<th>출판사</th>
+	<th>저자</th>
+	<th>출판년도</th>
+	<th>가격</th>
+</tr>
+<tr th:each="book : ${bookList}">
+	<td><a th:href="@{/book/findById(id=${book.id})}" th:text="${book.title}" >도서명</a></td>
+	<td th:text="${book.comp}">출판사</td>
+	<td th:text="${book.auth}">저자</td>
+	<td th:text="${book.year}">출판년도</td>
+	<td th:text="${book.price}">가격</td>
+	<td th:data-book-id="${book.id}"  class="u_tr" >삭제</td>
+</tr>
+</table>
+
+<th:block th:include="page"/>
+
+<button id="btn_insert">도서등록</button>
+</body>
+</html>
