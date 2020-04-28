@@ -25,14 +25,13 @@ import lombok.extern.slf4j.Slf4j;
 public class BookController {
 	private final BookService bookService;
 	
-	@ResponseBody
 	@RequestMapping(value = "/pagelist",method=RequestMethod.GET)
-	public Page<BookVO> getPageList(@PageableDefault Pageable page,Model model) {
+	public String getPageList(@PageableDefault Pageable page,Model model) {
 		Page<BookVO> bookList=bookService.getPageList(page);
 		log.debug("!!! paged bookList: "+bookList.toString());
 		model.addAttribute("bookList", bookList);
-		return bookList;
-		//return "bookList";
+		//return bookList;
+		return "bookList";
 	}
 	
 	@RequestMapping(value = "",method=RequestMethod.GET)
