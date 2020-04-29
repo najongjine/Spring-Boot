@@ -50,9 +50,10 @@ public class UserVO implements UserDetails{
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id",columnDefinition = "bigint")
 	private Long id;
 	
-	@Column(unique = true,length = 64)
+	@Column(unique = true,length = 64,columnDefinition = "varchar(64)")
 	private String username;
 	private String password;
 	

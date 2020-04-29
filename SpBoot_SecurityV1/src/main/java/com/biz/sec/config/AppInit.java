@@ -1,10 +1,13 @@
 package com.biz.sec.config;
 
+import java.util.Optional;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import com.biz.sec.domain.UserRole;
 import com.biz.sec.domain.UserVO;
+import com.biz.sec.repository.BBsDao;
 import com.biz.sec.repository.UserDao;
 import com.biz.sec.repository.UserRoleDao;
 
@@ -21,10 +24,13 @@ import lombok.RequiredArgsConstructor;
 public class AppInit implements CommandLineRunner{
 	private final UserDao uDao;
 	private final UserRoleDao urDao;
+	private final BBsDao bDao;
 	
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
+		Optional<UserVO> vo=uDao.findByUsername("1");
+		if(vo.isPresent()) return;
 		UserVO userVO=UserVO.builder().username("1").password("1").build();
 		uDao.save(userVO);
 		UserRole uRole=UserRole.builder().username("1").rolename("ADMIN").build();

@@ -1,5 +1,6 @@
 package com.biz.sec.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,14 +20,17 @@ import lombok.ToString;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+//@ToString
 @Builder
 @Entity
 @Table(name = "tbl_roles")
 public class UserRole {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id",columnDefinition = "bigint")
 	private Long id;
+	
+	@Column(length = 64,columnDefinition = "varchar(64)")
 	private String username;
 	private String rolename;
 	
