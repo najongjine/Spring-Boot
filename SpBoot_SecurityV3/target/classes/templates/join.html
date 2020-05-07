@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<th:block th:include="include/head"/>
+<script type="text/javascript">
+$(function(){
+	$(document).on("blur","#username",function(){
+		let username=$(this).val()
+		if(username==""){
+			$("#m_username").html("<b>* username 은 반드시 입력해야 합니다</b>")
+		}
+	})
+})
+</script>
+<body>
+<h2>회원가입</h2>
+<th:block th:replace="include/layout::nav"/>
+<form th:action="@{/user/join}" th:object="${userVO}" method="post">
+	<div>
+		<label for="username">username</label>
+		<input th:field="*{username}" placeholder="username">
+		<div id="m_username"></div>
+	</div>
+	
+	<div>
+		<label for="password">password</label>
+		<input th:field="*{password}" placeholder="password" type="password">
+	</div>
+	<div>
+		<label for="re_password">re_password</label>
+		<input name="re_password" id="re_password" placeholder="re_password" type="password">
+	</div>
+	
+	<div>
+		<label for="email">email</label>
+		<input th:field="*{email}" placeholder="email">
+	</div>
+	
+	<div>
+		<button>회원가입</button>
+		<button type="button">ID/비번찾기</button>
+	</div>
+</form>
+<th:block th:replace="include/layout::footer"/>
+</body>
+</html>
