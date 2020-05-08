@@ -1,8 +1,10 @@
 package com.biz.sec.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,9 +35,25 @@ public class BBsRestController {
 	
 	@RequestMapping(value = "/insert",method=RequestMethod.POST)
 	@CrossOrigin(origins = "http://localhost:3000")
-	public String insert(BBsVO bbsVO) {
+	public BBsVO insert(BBsVO bbsVO) {
 		BBsVO retBBsVO=bService.insert(bbsVO);
 		log.debug("# bbs data: "+bbsVO.toString());
+		return retBBsVO;
+	}
+	
+	@RequestMapping(value = "/detail",method=RequestMethod.GET)
+	@CrossOrigin(origins = "http://localhost:3000")
+	public BBsVO detail(long bbsid) {
+		Optional<BBsVO> bbsVO=bService.findById(bbsid);
+		log.debug("# bbsVO: "+bbsVO.get());
+		return bbsVO.get();
+	}
+	
+	@RequestMapping(value = "/delete/{bbsid}")
+	@CrossOrigin(origins = "http://localhost:3000")
+	public String delete(@PathVariable("bbsid") long bbsid) {
+		log.debug("# bbsid in dlete: "+bbsid);
+		bService.delete(bbsid);
 		return "OK";
 	}
 }
